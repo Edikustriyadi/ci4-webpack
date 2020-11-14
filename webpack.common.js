@@ -9,16 +9,39 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/, //using regex to tell babel exactly what files to transcompile
-                exclude: /node_modules/, // files to be ignored
-                use: {
-                    loader: 'babel-loader' // specify the loader
-                } 
+                "test": /\.js$/,
+                "exclude": /node_modules/,
+                "use": {
+                    "loader": "babel-loader",
+                    "options": {
+                    "presets": [
+                        "@babel/preset-env",
+                    ]
+                    }
+                }
             },
             {
                 test: /\.css$/, 
                 use: [
                     'css-loader'
+                ]
+            },
+            {
+                test: /\.html/,
+                use:['html-loader']
+            },
+            {
+                test: /\.(jpg|png)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath:'public/img',
+                            publicPath:'public/img'
+
+                        }
+                    }
                 ]
             }
         ]
